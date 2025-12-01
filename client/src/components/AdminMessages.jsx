@@ -40,7 +40,6 @@ const AdminMessages = () => {
         const loadingSooner = sooner.loading("Fetching Messages", "Loading latest contact submissions...");
 
         try {
-            // const config = { headers: { Authorization: `Bearer ${token}` } };
             const { data } = await api.get('/messages');
             setMessages(data);
 
@@ -68,7 +67,6 @@ const AdminMessages = () => {
         const loadingSooner = sooner.loading(action, `Updating status of message ID: ${id.slice(-4)}...`);
 
         try {
-            // const config = { headers: { Authorization: `Bearer ${user.token}`, 'Content-Type': 'application/json' } };
             const { data } = await api.patch(`/messages/${id}/read`, { isRead: !currentStatus });
 
             setMessages(prev => prev.map(m => m._id === id ? data : m));
@@ -165,7 +163,7 @@ const AdminMessages = () => {
                                 "group relative bg-white dark:bg-slate-900 rounded-3xl p-6 border transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
                                 message.isRead
                                     ? "border-gray-100 dark:border-slate-800 opacity-80"
-                                    : "border-blue-200 dark:border-blue-900/40 shadow-blue-500/10" // Highlight unread
+                                    : "border-blue-200 dark:border-blue-900/40 shadow-blue-500/10"
                             )}
                         >
                             {/* Inner Content Grid */}
@@ -174,7 +172,6 @@ const AdminMessages = () => {
 
                                     {/* Sender Info & Status */}
                                     <div className="flex items-center gap-3">
-                                        {/* ✅ AVATAR / FALLBACK LOGIC */}
                                         {message.user && message.user.avatar ? (
                                             <Avatar className="h-10 w-10">
                                                 <AvatarImage src={message.user.avatar} className="object-cover" />
@@ -183,7 +180,6 @@ const AdminMessages = () => {
                                                 </AvatarFallback>
                                             </Avatar>
                                         ) : (
-                                            // Initial Fallback (for public submissions or missing avatar)
                                             <div className={cn("h-10 w-10 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-sm", message.isRead ? "bg-gray-500" : "bg-blue-600")}>
                                                 {message.name.charAt(0).toUpperCase()}
                                             </div>

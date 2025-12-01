@@ -54,7 +54,7 @@ const PublicLayout = () => {
 // Home Page Component
 const Home = () => (
   <>
-    {/* ✅ Injecting Homepage SEO Strategy */}
+    {/* Injecting Homepage SEO Strategy */}
     <SEO
       title="Best Human Hair Exporter in Beldanga | Manufacturer & Supplier"
       description="Direct from factory in Beldanga, Murshidabad. Jony Hair Enterprise exports premium Bulk, Weft, and Temple hair globally. Wholesale prices for salons & distributors."

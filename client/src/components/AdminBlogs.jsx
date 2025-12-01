@@ -23,18 +23,17 @@ const AdminBlogs = () => {
         title: '',
         excerpt: '',
         content: '',
-        tags: '', // Comma separated string for input
+        tags: '',
         image: null,
         previewImage: ''
     });
 
     const fetchBlogs = async () => {
         try {
-            // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const { data } = await api.get('/blogs/admin');
             setBlogs(data);
         } catch (error) {
-            sooner.error("Fetch Error", "Failed to load the list of blog posts."); // ✅ Fetch Error
+            sooner.error("Fetch Error", "Failed to load the list of blog posts.");
         }
     };
 
@@ -63,7 +62,6 @@ const AdminBlogs = () => {
 
         setLoading(true);
         try {
-            // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const data = new FormData();
 
             data.append('title', formData.title);
@@ -122,11 +120,10 @@ const AdminBlogs = () => {
 
     const handleDelete = async (id, title) => {
 
-        // 1. Interactive Confirmation Sooner
         const confirmationSooner = sooner.error(
             "Confirm Deletion",
             `Are you sure you want to delete the blog post: "${title}"?`,
-            Infinity // Persistent
+            Infinity
         );
 
         confirmationSooner.update({
@@ -140,7 +137,6 @@ const AdminBlogs = () => {
                             const deleteLoading = sooner.loading("Deleting...", `Removing blog post: ${title}...`);
 
                             try {
-                                // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                                 await api.delete(`/blogs/${id}`);
 
                                 deleteLoading.update({
@@ -199,7 +195,6 @@ const AdminBlogs = () => {
         );
 
         try {
-            // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             await api.put(`/blogs/${id}`, { isActive: !currentStatus });
 
             loadingSooner.update({

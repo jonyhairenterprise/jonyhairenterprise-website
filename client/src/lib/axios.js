@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// 1. Base URL set karna (Environment Variable se lega)
-// Agar .env file nahi milti to default localhost use karega (Development ke liye)
+// 1. Base URL set
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const api = axios.create({
@@ -12,9 +11,6 @@ const api = axios.create({
 });
 
 // 2. Request Interceptor (Automagic Token Injection)
-// Yeh function har API call se pehle chalega.
-// Agar user logged in hai, to yeh apne aap 'Authorization' header laga dega.
-// Aapko ab har component mein manually token nikalne ki zarurat nahi hai.
 api.interceptors.request.use(
   (config) => {
     const userInfo = localStorage.getItem("userInfo");

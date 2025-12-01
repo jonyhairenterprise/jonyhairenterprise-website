@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 const SEO = ({ title, description, keywords, image, url }) => {
 
-    // ✅ AI Overview & Google Knowledge Graph Data
-    // Ye code user ko nahi dikhega, par Google AI isse padh kar summary banayega.
+    // AI Overview & Google Knowledge Graph Data
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
@@ -56,7 +55,7 @@ const SEO = ({ title, description, keywords, image, url }) => {
             <meta property="og:url" content={url || "https://jonyhairenterprise.com"} />
             <meta property="og:type" content="website" />
 
-            {/* ✅ JSON-LD Schema for AI */}
+            {/* JSON-LD Schema for AI */}
             <script type="application/ld+json">
                 {JSON.stringify(schemaData)}
             </script>

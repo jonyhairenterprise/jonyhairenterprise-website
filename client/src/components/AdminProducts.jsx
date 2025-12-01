@@ -5,8 +5,6 @@ import { Plus, Search, PackageOpen, Pencil, X } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { sooner } from "@/components/ui/use-sooner.jsx";
-
-// ✅ Import Child Components
 import ProductCard from './admin/products/ProductCard';
 import ProductForm from './admin/products/ProductForm';
 
@@ -85,7 +83,6 @@ const AdminProducts = () => {
                             const deleteLoading = sooner.loading("Deleting Product", `Removing ${name} and its data...`);
 
                             try {
-                                const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                                 await api.delete(`/products/${id}`);
 
                                 deleteLoading.update({
@@ -131,8 +128,6 @@ const AdminProducts = () => {
         );
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
             await api.patch(`/products/${id}/bestseller`, {});
 
             loadingSooner.update({
@@ -164,7 +159,6 @@ const AdminProducts = () => {
         );
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const apiFormData = new FormData();
 
             // Append all fields
@@ -273,7 +267,7 @@ const AdminProducts = () => {
                                 <DialogDescription className="dark:text-slate-400">Fill in the details below to update your inventory.</DialogDescription>
                             </DialogHeader>
 
-                            {/* ✅ Render Clean Form Component */}
+                            {/* Render Clean Form Component */}
                             <ProductForm
                                 formData={formData}
                                 setFormData={setFormData}
@@ -293,7 +287,7 @@ const AdminProducts = () => {
             {/* --- PRODUCT GRID --- */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredProducts.map((product) => (
-                    // ✅ Render Clean Card Component
+                    // Render Clean Card Component
                     <ProductCard
                         key={product._id}
                         product={product}

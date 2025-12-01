@@ -13,8 +13,6 @@ const AdminReviews = () => {
 
     const fetchReviews = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
             const { data } = await api.get('/reviews/admin');
             setReviews(data);
         } catch (error) {
@@ -34,8 +32,6 @@ const AdminReviews = () => {
         );
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
             const payload = { [field]: value };
 
             await api.put(`/reviews/${id}`, payload);
@@ -72,8 +68,6 @@ const AdminReviews = () => {
         );
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
             const payload = { adminReply: reply };
 
             await api.put(`/reviews/${reviewId}`, payload);
@@ -229,7 +223,7 @@ const AdminReviews = () => {
                                             </div>
                                             <p className="text-xs text-gray-600 dark:text-slate-300 pl-7">{review.adminReply}</p>
                                             <button
-                                                onClick={() => handleAction(review._id, 'adminReply', "", reviewName)} // ✅ Sooner Action (Delete Reply)
+                                                onClick={() => handleAction(review._id, 'adminReply', "", reviewName)} // Sooner Action (Delete Reply)
                                                 className="absolute top-3 right-3 text-[10px] font-bold text-red-400 hover:text-red-600 hover:underline"
                                             >
                                                 Delete
@@ -246,7 +240,7 @@ const AdminReviews = () => {
                                             <Button
                                                 size="icon"
                                                 className="h-8 w-8 shrink-0 bg-gray-900 dark:bg-primary hover:bg-primary rounded-lg shadow-sm"
-                                                onClick={() => handleReplySubmit(review._id, replyText[review._id], reviewName)} // ✅ Sooner Reply Submit
+                                                onClick={() => handleReplySubmit(review._id, replyText[review._id], reviewName)} // Sooner Reply Submit
                                                 disabled={!replyText[review._id]}
                                             >
                                                 <MessageCircle className="h-4 w-4" />

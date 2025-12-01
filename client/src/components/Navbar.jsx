@@ -42,7 +42,6 @@ const Navbar = () => {
         navigate('/admin/login');
     };
 
-    // Helper: Current Icon Display
     const CurrentThemeIcon = () => {
         if (theme === 'system') return <Laptop className="h-5 w-5" />;
         return theme === 'dark' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />;

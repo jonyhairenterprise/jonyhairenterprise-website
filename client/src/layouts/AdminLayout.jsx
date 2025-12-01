@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom'; // ✅ useNavigate import kiya
+import { Outlet, useNavigate } from 'react-router-dom';
 import AdminSidebar from '../components/AdminSidebar';
 import AdminNavbar from '../components/AdminNavbar';
 
 const AdminLayout = () => {
     const navigate = useNavigate();
     const [isSidebarOpen, setSidebarOpen] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false); // ✅ Security State
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        // Check karte hain ki user logged in hai aur Admin hai
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
         if (!userInfo || !userInfo.isAdmin) {
-            // Agar user nahi hai ya admin nahi hai, toh login par bhej do
-            // replace: true ka matlab hai history se current entry hata do
             navigate('/admin/login', { replace: true });
         } else {
-            // Agar sab sahi hai, toh content dikhao
             setIsAuthenticated(true);
         }
     }, [navigate]);
 
-    // Jab tak check nahi hota, kuch mat dikhao (Security Layer)
     if (!isAuthenticated) return null;
 
     return (

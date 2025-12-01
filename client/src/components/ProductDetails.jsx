@@ -3,8 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from "@/lib/axios";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import SEO from '../components/SEO';
-
-// ✅ Import Child Components
 import ProductInfo from './product/ProductInfo';
 import ProductReviews from './product/ProductReviews';
 import RelatedProducts from './product/RelatedProducts';
@@ -96,7 +94,6 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-slate-950 relative overflow-hidden transition-colors duration-300">
       
-      {/* ✅ Inject Dynamic SEO Tags Here */}
       {product && (
         <SEO
           title={seoTitle}

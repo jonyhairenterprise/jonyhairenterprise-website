@@ -11,7 +11,6 @@ const Contact = () => {
     const [loading, setLoading] = useState(false);
     const [settings, setSettings] = useState(null);
 
-    // ✅ NEW FORM STATE
     const [formData, setFormData] = useState({
         name: '',
         lastName: '',
@@ -21,7 +20,7 @@ const Contact = () => {
         message: ''
     });
 
-    // Fetch Settings on Load (Remains unchanged)
+    // Fetch Settings on Load
     useEffect(() => {
         const fetchSettings = async () => {
             try {
@@ -72,7 +71,7 @@ const Contact = () => {
         setLoading(true);
 
         try {
-            // ✅ API CALL: Submit to new backend route
+            // Submit to new backend route
             await api.post('/messages', payload);
 
             // 2. Success Sooner Update
@@ -112,11 +111,11 @@ const Contact = () => {
         const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
 
-        // ✅ Info Sooner for External Chat
+        // Info Sooner for External Chat
         sooner.info("Opening WhatsApp", "Redirecting to WhatsApp chat. Keep the pre-filled message.", 4000);
     };
 
-    // Helper for Contact Cards (Remains unchanged)
+    // Helper for Contact Cards
     const ContactCard = ({ icon: Icon, title, value, href, colorClass, bgClass, borderColor }) => (
         <a
             href={href}

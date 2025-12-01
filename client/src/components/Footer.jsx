@@ -11,7 +11,6 @@ const Footer = () => {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                // ✅ CHANGE: Use 'api' and relative path
                 const { data } = await api.get('/settings');
                 setSettings(data);
             } catch (error) {

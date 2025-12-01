@@ -111,7 +111,7 @@ const ClientReviews = () => {
                                             {/* User Info with Avatar */}
                                             <div className="flex flex-col items-center">
                                                 <div className="flex items-center gap-4">
-                                                    {/* ✅ USER AVATAR IMPLEMENTATION */}
+                                                    {/* USER AVATAR IMPLEMENTATION */}
                                                     <Avatar className="h-14 w-14 border-4 border-white dark:border-slate-800 shadow-lg">
                                                         <AvatarImage src={review.user?.avatar} className="object-cover" />
                                                         <AvatarFallback className="bg-gradient-to-br from-primary to-purple-600 text-white font-bold text-lg">

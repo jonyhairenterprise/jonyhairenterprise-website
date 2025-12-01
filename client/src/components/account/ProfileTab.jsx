@@ -27,7 +27,7 @@ const ProfileTab = ({ user, setUser, handleLogout }) => {
         e.preventDefault();
 
         if (password && password !== confirmPassword) {
-            sooner.error("Password Mismatch", "Naya password aur confirmation password match nahi kar rahe hain."); // ✅ Sooner Error
+            sooner.error("Password Mismatch", "Naya password aur confirmation password match nahi kar rahe hain.");
             return;
         }
 
@@ -45,11 +45,9 @@ const ProfileTab = ({ user, setUser, handleLogout }) => {
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
             const { data } = await api.put('/users/profile', formData, config);
 
-            // Parent state aur LocalStorage update karo
             localStorage.setItem('userInfo', JSON.stringify(data));
             setUser(data);
 
-            // 2. Success Sooner Update
             loadingSooner.update({
                 title: "Profile Updated!",
                 description: "Aapka account safaltapoorvak update ho gaya hai.",
@@ -60,13 +58,11 @@ const ProfileTab = ({ user, setUser, handleLogout }) => {
             setPassword("");
             setConfirmPassword("");
 
-            // Image change ke liye page reload zaruri hai
             setTimeout(() => window.location.reload(), 1000);
 
         } catch (error) {
             const errorMessage = error.response?.data?.message || "Profile update mein gadbadi hui.";
 
-            // 3. Error Sooner Update
             loadingSooner.update({
                 title: "Update Failed",
                 description: errorMessage,

@@ -9,7 +9,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-// ✅ Added 'Heart' to imports
 import { Star, User, Pencil, Trash2, MessageCircle, Heart, CheckCircle2, X, Loader2 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { sooner } from "@/components/ui/use-sooner.jsx";
@@ -97,19 +96,18 @@ const ProductReviews = ({ product, userInfo }) => {
 
         confirmationSooner.update({
             action: (
-                // ✅ FIX: Added flex-col on mobile, flex-row on small screens and gap-4
+                // Added flex-col on mobile, flex-row on small screens and gap-4
                 <div className='flex flex-col sm:flex-row gap-4 p-2'>
                     <Button
                         size="sm"
                         variant="destructive"
-                        // ✅ FIX: Added w-full for better stacking on mobile
+                        // Added w-full for better stacking on mobile
                         className='w-full sm:w-auto'
                         onClick={async () => {
                             confirmationSooner.dismiss();
                             const deleteLoading = sooner.loading("Deleting Review", "Removing review and recalculating rating...");
 
                             try {
-                                // const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
                                 await api.delete(`/reviews/${reviewId}`);
 
                                 deleteLoading.update({
@@ -156,7 +154,6 @@ const ProductReviews = ({ product, userInfo }) => {
         );
 
         try {
-            // const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
             await api.put(`/reviews/${reviewId}`, {
                 rating: editRating,
                 comment: editComment
@@ -210,7 +207,7 @@ const ProductReviews = ({ product, userInfo }) => {
                             return (
                                 <div key={idx} className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-all duration-300 group relative">
 
-                                    {/* ✅ FIX: ADMIN HEART REACT BADGE */}
+                                    {/* ADMIN HEART REACT BADGE */}
                                     {review.isLoved && (
                                         <div className="absolute -top-3 -right-3 z-20 bg-white dark:bg-slate-800 p-2 rounded-full shadow-lg border border-red-100 dark:border-red-900/30 transform rotate-12" title="Loved by Jony Hair">
                                             <Heart className="h-5 w-5 text-red-500 fill-red-500 drop-shadow-sm" />

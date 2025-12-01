@@ -20,22 +20,20 @@ const ReviewsTab = ({ user }) => {
     const fetchMyReviews = async () => {
         setLoading(true);
         try {
-            // const config = { headers: { Authorization: `Bearer ${user.token}` } };
             const { data } = await api.get('/reviews/myreviews');
             setMyReviews(data);
         } catch (error) {
-            sooner.error("Fetch Error", "Failed to load your past reviews."); // ✅ Error for fetching
+            sooner.error("Fetch Error", "Failed to load your past reviews.");
         }
         finally { setLoading(false); }
     };
 
     const handleDeleteReview = async (id) => {
 
-        // Interactive Confirmation Sooner
         const confirmationSooner = sooner.info(
             "Confirm Deletion",
             "Are you sure you want to permanently delete this review? This action cannot be undone.",
-            Infinity // Persistent until action is taken
+            Infinity
         );
 
         const reviewToDelete = myReviews.find(r => r._id === id);
@@ -48,7 +46,7 @@ const ReviewsTab = ({ user }) => {
                         variant="destructive"
                         className='w-full sm:w-auto'
                         onClick={async () => {
-                            confirmationSooner.dismiss(); // Dismiss confirmation immediately
+                            confirmationSooner.dismiss();
 
                             const deleteLoading = sooner.loading("Deleting Review", `Removing review for ${reviewToDelete?.product?.name || 'Website'}...`);
 
@@ -157,7 +155,7 @@ const ReviewsTab = ({ user }) => {
                     {myReviews.map((review) => (
                         <div key={review._id} className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm relative group">
 
-                            {/* ✅ ADMIN LOVE REACT BADGE */}
+                            {/* ADMIN LOVE REACT BADGE */}
                             {review.isLoved && (
                                 <div className="absolute -top-2 -right-2 z-20 bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-md border border-red-100 dark:border-red-900/30 transform rotate-12" title="Loved by Admin">
                                     <Heart className="h-4 w-4 text-red-500 fill-red-500" />

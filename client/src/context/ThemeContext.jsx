@@ -4,8 +4,6 @@ const ThemeContext = createContext(null);
 const STORAGE_KEY = "theme-preference";
 
 export const ThemeProvider = ({ children }) => {
-    // ✅ FIX: State ko initialize karte waqt hi LocalStorage check kar lo
-    // Isse refresh karne par theme reset nahi hogi
     const [theme, setTheme] = useState(() => {
         if (typeof window !== "undefined") {
             const stored = window.localStorage.getItem(STORAGE_KEY);
@@ -27,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
 
             setResolvedTheme(effective);
 
-            // ✅ Clean slate approach
+            // Clean slate approach
             root.classList.remove("light", "dark");
             root.classList.add(effective);
         };

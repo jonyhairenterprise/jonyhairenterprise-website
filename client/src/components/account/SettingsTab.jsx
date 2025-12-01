@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sun, Moon, Laptop, CheckCircle2, Palette } from "lucide-react";
 import { useTheme } from '../../context/ThemeContext';
-import { cn } from "@/lib/utils"; // Using shadcn utility for cleaner classes
+import { cn } from "@/lib/utils";
 
 const SettingsTab = () => {
     const { theme, resolvedTheme, setTheme } = useTheme();
@@ -30,8 +30,8 @@ const SettingsTab = () => {
                 {/* Card Content */}
                 <div className={cn(
                     "w-full h-full flex flex-col items-center justify-center gap-3 p-5 rounded-[1.25rem] border border-transparent transition-all overflow-hidden relative",
-                    "bg-white dark:bg-slate-800", // Fallback bg
-                    gradientClass // Unique Gradient per card
+                    "bg-white dark:bg-slate-800",
+                    gradientClass
                 )}>
 
                     {/* Decorative Blob inside card */}

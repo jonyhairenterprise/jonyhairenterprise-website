@@ -45,10 +45,6 @@ const AdminQuotes = () => {
 
         try {
             setLoading(true);
-            // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-            // const config = {
-            //     headers: { Authorization: `Bearer ${userInfo.token}` },
-            // };
             const { data } = await api.get("/quotes/admin");
             setQuotes(data);
 
@@ -94,14 +90,6 @@ const AdminQuotes = () => {
         );
 
         try {
-            // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-            // const config = {
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         Authorization: `Bearer ${userInfo.token}`,
-            //     },
-            // };
-
             const { data } = await api.put(
                 `/quotes/${id}/status`,
                 { status: "Contacted" }
@@ -141,7 +129,7 @@ const AdminQuotes = () => {
         const number = quote.user?.whatsappNumber;
 
         if (!number) {
-            // ✅ Sooner Error for Missing WhatsApp
+            // Sooner Error for Missing WhatsApp
             sooner.error(
                 "Missing Contact Info",
                 "User has not provided a WhatsApp number in their profile.",
@@ -163,7 +151,7 @@ const AdminQuotes = () => {
 
         const url = buildWhatsappUrl(number, text);
         if (!url) {
-            // ✅ Sooner Error for Invalid WhatsApp
+            // Sooner Error for Invalid WhatsApp
             sooner.error(
                 "Invalid Number",
                 "WhatsApp URL could not be generated. Check the user's saved number format.",
@@ -173,7 +161,7 @@ const AdminQuotes = () => {
         }
         window.open(url, "_blank");
 
-        // ✅ Sooner Info for External Link
+        // Sooner Info for External Link
         sooner.info(
             "Opening WhatsApp Chat",
             `Starting chat with ${quote.user?.name || 'Customer'}. Remember to mark the quote as contacted.`,

@@ -69,7 +69,7 @@ const BlogDetails = () => {
 
     if (!blog) return <div className="min-h-screen flex items-center justify-center dark:bg-slate-950 text-red-500 font-bold">Article Not Found</div>;
 
-    // ✅ Dynamic SEO Data for Articles
+    // Dynamic SEO Data for Articles
     const seoTitle = `${blog.title} - Expert Guide by Jony Hair`;
     const seoDesc = blog.excerpt || `Read this expert guide on ${blog.title}. Jony Hair Enterprise shares insights from Beldanga, India.`;
     const seoKeywords = `${blog.tags?.join(', ')}, hair care advice, Jony Hair Enterprise guide, ${blog.title}`;
@@ -105,7 +105,6 @@ const BlogDetails = () => {
             {/* --- MAIN CONTAINER --- */}
             <article className="pt-32 pb-24">
 
-                {/* 1. CINEMATIC HEADER */}
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center mb-12">
 
                     {/* Tags */}

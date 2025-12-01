@@ -18,7 +18,7 @@ const ReviewUs = () => {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('userInfo'));
         if (!user) {
-            // ✅ Sooner notification for login requirement
+            // Sooner notification for login requirement
             sooner.info("Sign In Required", "Please sign in to share your feedback. Redirecting to login page.", 4000);
             navigate('/admin/login');
         } else {
@@ -29,7 +29,7 @@ const ReviewUs = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (rating === 0) {
-            sooner.error("Missing Rating", "Please select a star rating before submitting."); // ✅ Sooner for missing rating
+            sooner.error("Missing Rating", "Please select a star rating before submitting."); // Sooner for missing rating
             return;
         }
 
@@ -41,12 +41,6 @@ const ReviewUs = () => {
 
         setLoading(true);
         try {
-            // const config = {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         Authorization: `Bearer ${userInfo.token}`
-            //     }
-            // };
 
             await api.post('/reviews', {
                 rating,
@@ -82,7 +76,7 @@ const ReviewUs = () => {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-slate-950 relative overflow-hidden flex items-center justify-center py-12 px-4 transition-colors duration-500">
 
-            {/* ✅ Inject Review Page SEO */}
+            {/* Inject Review Page SEO */}
             <SEO
                 title="Write a Review | Customer Feedback for Jony Hair Enterprise"
                 description="Share your experience with Jony Hair Enterprise. Read authentic reviews from international salon owners and distributors about our Raw Indian Hair quality."

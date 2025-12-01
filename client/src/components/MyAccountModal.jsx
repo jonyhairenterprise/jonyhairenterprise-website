@@ -3,8 +3,6 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { User, FileText, Settings, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNavigate } from 'react-router-dom';
-
-// ✅ Child Components Import
 import ProfileTab from './account/ProfileTab';
 import ReviewsTab from './account/ReviewsTab';
 import SettingsTab from './account/SettingsTab';

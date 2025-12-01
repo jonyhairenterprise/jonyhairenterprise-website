@@ -37,7 +37,6 @@ const AdminProfileModal = ({ isOpen, onOpenChange }) => {
     const handleUpdate = async (e) => {
         e.preventDefault();
 
-        // 1. Loading Sooner Start
         const loadingSooner = sooner.loading(
             "Updating Admin Profile",
             "Saving changes, including new avatar or password..."
@@ -46,7 +45,7 @@ const AdminProfileModal = ({ isOpen, onOpenChange }) => {
         setLoading(true);
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const formData = new FormData();
 
             // Sirf wahi data bhejo jo change karna hai

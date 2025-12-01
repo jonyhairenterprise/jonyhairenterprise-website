@@ -57,7 +57,7 @@ const AdminSettings = () => {
                     }));
                 }
             } catch (error) {
-                sooner.error("Fetch Error", "Failed to load current site configurations."); // ✅ Fetch Error
+                sooner.error("Fetch Error", "Failed to load current site configurations."); // Fetch Error
             }
         };
         fetchSettings();
@@ -82,9 +82,6 @@ const AdminSettings = () => {
 
         setLoading(true);
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-
             await api.put('/settings', formData);
 
             // 2. Success Sooner Update

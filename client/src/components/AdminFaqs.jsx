@@ -19,7 +19,6 @@ const AdminFaqs = () => {
 
     const fetchFaqs = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const { data } = await api.get('/faqs/admin');
             setFaqs(data);
             setLoading(false);
@@ -41,9 +40,6 @@ const AdminFaqs = () => {
         );
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-
             if (editingId) {
                 await api.put(`/faqs/${editingId}`, formData);
             } else {
@@ -79,7 +75,6 @@ const AdminFaqs = () => {
         );
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             await api.put(`/faqs/${id}`, { isActive: !currentStatus });
 
             loadingSooner.update({
@@ -102,11 +97,10 @@ const AdminFaqs = () => {
 
     const handleDelete = async (id, question) => {
 
-        // 1. Interactive Confirmation Sooner
         const confirmationSooner = sooner.error(
             "Confirm Deletion",
             `Are you sure you want to delete the question: "${question.substring(0, 30)}..."?`,
-            Infinity // Persistent
+            Infinity
         );
 
         confirmationSooner.update({
@@ -120,7 +114,6 @@ const AdminFaqs = () => {
                             const deleteLoading = sooner.loading("Deleting...", `Removing question...`);
 
                             try {
-                                const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                                 await api.delete(`/faqs/${id}`);
 
                                 deleteLoading.update({

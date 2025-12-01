@@ -25,7 +25,7 @@ const RelatedProducts = ({ products }) => {
                             key={product._id}
                             onClick={() => {
                                 navigate(`/product/${product._id}`);
-                                window.scrollTo(0, 0); // Click karne par top pe le jaye
+                                window.scrollTo(0, 0);
                             }}
                             className="group flex flex-col bg-white dark:bg-slate-900 rounded-3xl cursor-pointer transition-all duration-500 hover:-translate-y-2 hover:shadow-xl border border-gray-100 dark:border-slate-800 overflow-hidden relative"
                         >

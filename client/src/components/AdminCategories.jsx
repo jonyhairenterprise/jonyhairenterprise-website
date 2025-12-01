@@ -21,7 +21,7 @@ const AdminCategories = () => {
             const { data } = await api.get('/categories');
             setCategories(data);
         } catch (error) {
-            sooner.error("Fetch Error", "Failed to load categories list."); // ✅ Fetch Error Sooner
+            sooner.error("Fetch Error", "Failed to load categories list.");
         }
     };
 
@@ -40,9 +40,6 @@ const AdminCategories = () => {
 
         setLoading(true);
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-            const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-
             if (editingId) {
                 await api.put(`/categories/${editingId}`, { name });
             } else {
@@ -100,7 +97,6 @@ const AdminCategories = () => {
                             const deleteLoading = sooner.loading("Deleting...", `Removing category ${name}...`);
 
                             try {
-                                const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                                 await api.delete(`/categories/${id}`);
 
                                 deleteLoading.update({
@@ -133,7 +129,7 @@ const AdminCategories = () => {
                     </Button>
                 </>
             ),
-            variant: "interactive", // Use interactive style for the modal look
+            variant: "interactive",
             duration: Infinity
         });
     };

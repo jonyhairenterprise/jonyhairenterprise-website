@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { sooner } from "@/components/ui/use-sooner.jsx";
 
-// Helper for Section Headers (remains unchanged)
+// Helper for Section Headers
 const SectionHeader = ({ icon: Icon, title }) => (
     <div className="flex items-center gap-3 mb-5 pb-3 border-b border-gray-100 dark:border-slate-800">
         <div className="p-2 bg-primary/10 rounded-lg text-primary">
@@ -32,16 +32,16 @@ const ProductForm = ({
     productData
 }) => {
 
-    // --- HANDLERS --- (remain unchanged)
+    // --- HANDLERS ---
     const handleChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-    // Stock Handlers (remain unchanged)
+    // Stock Handlers
     const incrementStock = () => handleChange('stock', Number(formData.stock) + 1);
     const decrementStock = () => handleChange('stock', Math.max(0, Number(formData.stock) - 1));
 
-    // Variant Handlers (remain unchanged)
+    // Variant Handlers
     const handleVariantChange = (index, field, value) => {
         const newVariants = [...formData.variants];
         newVariants[index][field] = value;
@@ -57,7 +57,7 @@ const ProductForm = ({
     }
     const removeVariant = (index) => handleChange('variants', formData.variants.filter((_, i) => i !== index));
 
-    // Color Handlers (remain unchanged)
+    // Color Handlers
     const handleColorChange = (index, value) => {
         const newColors = [...formData.colors];
         newColors[index] = value;
@@ -73,7 +73,7 @@ const ProductForm = ({
     }
     const removeColor = (index) => handleChange('colors', formData.colors.filter((_, i) => i !== index));
 
-    // Image Handlers (remain unchanged)
+    // Image Handlers
     const handleMainImageChange = (e) => {
         const file = e.target.files[0];
         if (file) setImages(prev => ({ ...prev, main: file, previewMain: URL.createObjectURL(file) }));
@@ -99,7 +99,7 @@ const ProductForm = ({
     return (
         <form id="product-form" onSubmit={onSubmit} className="flex flex-col h-full overflow-y-auto">
 
-            {/* ✅ UI FIX: Scrollable content with horizontal and top padding */}
+            {/* Scrollable content with horizontal and top padding */}
             <div className="flex-1 custom-scrollbar">
 
                 {/* Apply padding directly to the grid container to ensure scroll stability */}
@@ -108,7 +108,7 @@ const ProductForm = ({
                     {/* --- LEFT COLUMN (Main Info) --- */}
                     <div className="lg:col-span-8 space-y-6">
 
-                        {/* Basic Info (remains unchanged) */}
+                        {/* Basic Info */}
                         <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm space-y-5">
                             <SectionHeader icon={Tag} title="Basic Information" />
                             <div className="space-y-2">
@@ -141,13 +141,13 @@ const ProductForm = ({
                                     theme="snow"
                                     value={formData.highlights}
                                     onChange={(val) => handleChange('highlights', val)}
-                                    className="h-48" // ✅ FIX: Removed mb-12 margin
+                                    className="h-48"
                                     placeholder="• write features here..."
                                 />
                             </div>
                         </div>
 
-                        {/* Media Gallery (remains unchanged) */}
+                        {/* Media Gallery */}
                         <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm">
                             <SectionHeader icon={ImageIcon} title="Media Gallery" />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -167,7 +167,7 @@ const ProductForm = ({
                                             </div>
                                         </div>
                                     ) : (
-                                        // ✅ FIX: Upload Icon/Text rendered safely
+                                        // Upload Icon/Text rendered safely
                                         <span className='flex flex-col items-center'>
                                             <UploadCloud className={`h-10 w-10 mb-2 ${isMainImageMissing ? 'text-red-500' : 'text-primary'}`} />
                                             <span className={`text-sm font-bold ${isMainImageMissing ? 'text-red-500' : 'text-primary'}`}>Upload Main Image</span>
@@ -192,7 +192,7 @@ const ProductForm = ({
                     {/* --- RIGHT COLUMN (Settings) --- */}
                     <div className="lg:col-span-4 space-y-6 pb-6">
 
-                        {/* Organization (remains unchanged) */}
+                        {/* Organization */}
                         <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm space-y-5">
                             <SectionHeader icon={Layers} title="Organization" />
                             <div className="space-y-2">
@@ -216,7 +216,7 @@ const ProductForm = ({
                             </div>
                         </div>
 
-                        {/* Pricing & Variants (remains unchanged) */}
+                        {/* Pricing & Variants */}
                         <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-gray-100 dark:border-slate-800 shadow-sm">
                             <SectionHeader icon={DollarSign} title="Pricing & Sizes" />
                             <div className="space-y-3 max-h-60 overflow-y-auto pr-1 custom-scrollbar">

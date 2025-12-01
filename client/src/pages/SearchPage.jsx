@@ -47,7 +47,7 @@ const SearchPage = () => {
         }
     }, [query, products]);
 
-    // ✅ Dynamic Title Logic
+    // Dynamic Title Logic
     const seoTitle = query
         ? `Search Results for "${query}" | Jony Hair Enterprise`
         : "Search Our Inventory | Jony Hair Enterprise";
@@ -55,7 +55,7 @@ const SearchPage = () => {
     return (
         <div className="min-h-screen bg-gray-50/50 dark:bg-slate-950 relative overflow-hidden pt-24 pb-20 transition-colors duration-500">
 
-            {/* ✅ Inject Search SEO */}
+            {/* Inject Search SEO */}
             <SEO
                 title={seoTitle}
                 description="Search through our extensive catalog of Raw Indian Hair, Bulk Hair, and Extensions. Find the perfect texture and length directly from the manufacturer."

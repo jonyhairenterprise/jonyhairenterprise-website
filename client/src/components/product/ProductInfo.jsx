@@ -44,14 +44,14 @@ const ProductInfo = ({ product, siteSettings, userInfo }) => {
 
     const handleRequestQuote = async () => {
         if (!userInfo) {
-            // ✅ Sooner for Login Check
+            // Sooner for Login Check
             sooner.error("Login Required", "Please sign in to request a custom quote.", 4000);
             navigate("/admin/login", { state: { from: location } });
             return;
         }
 
         if (!selectedLength || !selectedColor || !currentPrice) {
-            // ✅ Sooner for Validation Check
+            // Sooner for Validation Check
             sooner.error("Missing Selection", "Please select Length, Shade, and ensure a Price is set before requesting a quote.", 5000);
             return;
         }
@@ -64,13 +64,6 @@ const ProductInfo = ({ product, siteSettings, userInfo }) => {
 
         setQuoteLoading(true);
         try {
-            // const config = {
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //         Authorization: `Bearer ${userInfo.token}`,
-            //     },
-            // };
-
             await api.post("/quotes", {
                 productId: product._id,
                 selectedDetails: {
@@ -111,7 +104,7 @@ const ProductInfo = ({ product, siteSettings, userInfo }) => {
         const number = siteSettings?.productWhatsapp?.number || siteSettings?.whatsapp?.number;
 
         if (!number) {
-            sooner.error("Configuration Error", "WhatsApp number not configured in Admin Settings.", 5000); // ✅ Sooner for config error
+            sooner.error("Configuration Error", "WhatsApp number not configured in Admin Settings.", 5000); // Sooner for config error
             return;
         }
 
@@ -130,7 +123,7 @@ const ProductInfo = ({ product, siteSettings, userInfo }) => {
         const url = `https://api.whatsapp.com/send?phone=${String(number).replace(/[^\d]/g, "")}&text=${encodeURIComponent(text)}`;
         window.open(url, "_blank");
 
-        // ✅ Sooner for initiating external chat
+        // Sooner for initiating external chat
         sooner.info("Opening WhatsApp", "Redirecting to WhatsApp chat. Please ensure your browser pop-ups are allowed.", 4000);
     };
 
@@ -265,7 +258,7 @@ const ProductInfo = ({ product, siteSettings, userInfo }) => {
                     )}
                 </div>
 
-                {/* --- MODERN ACTION BUTTONS (Updated) --- */}
+                {/* --- MODERN ACTION BUTTONS --- */}
                 <div className="flex flex-col gap-4">
 
                     {/* 1. Request Quote Button (Purple Gradient with Glow) */}
