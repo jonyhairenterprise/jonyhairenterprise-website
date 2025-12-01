@@ -15,9 +15,23 @@ const Login = () => {
     const [whatsappNumber, setWhatsappNumber] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [adminExists, setAdminExists] = useState(true); // Default to true for safety
 
     const navigate = useNavigate();
     const location = useLocation();
+
+    // Check Admin Existence on Mount
+    useEffect(() => {
+        const checkAdminStatus = async () => {
+            try {
+                const { data } = await api.get("/users/admin-exists");
+                setAdminExists(data.exists);
+            } catch (error) {
+                console.error("Failed to check admin status");
+            }
+        };
+        checkAdminStatus();
+    }, []);
 
     useEffect(() => {
         const userInfoRaw = localStorage.getItem("userInfo");
@@ -28,6 +42,13 @@ const Login = () => {
             else navigate("/");
         } catch { localStorage.removeItem("userInfo"); }
     }, [navigate]);
+
+    // Reset registration mode when switching roles
+    const handleRoleSwitch = (newRole) => {
+        setRole(newRole);
+        setIsRegistering(false);
+        setError("");
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,11 +62,28 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const isAdminLogin = role === "admin";
-            let url = isAdminLogin || !isRegistering ? "/users/login" : "/users";
-            let payload = isAdminLogin || !isRegistering ? { email, password } : { name, email, password, whatsappNumber };
+            // Logic: Admin login is distinct. Registration endpoint is same (/users), backend handles first user = admin logic
+            const isAdminLogin = role === "admin" && !isRegistering;
+
+            let url = "/users/login"; // Default Login
+            if (isRegistering) url = "/users"; // Registration
+
+            let payload = { email, password };
+            if (isRegistering) {
+                payload = { ...payload, name, whatsappNumber };
+            }
+
+            // Special check for Admin Login vs User Login endpoint nuances if any
+            // Here we stick to standard flow: Register -> /users, Login -> /users/login
+            // Backend assigns admin role automatically if it's the first user.
 
             const { data } = await api.post(url, payload);
+
+            // Security Check: If trying to login as admin but got user token
+            if (role === "admin" && !data.isAdmin) {
+                throw new Error("Access Denied: Not an admin account.");
+            }
+
             localStorage.setItem("userInfo", JSON.stringify(data));
 
             loadingSooner.update({
@@ -63,7 +101,7 @@ const Login = () => {
                 navigate(origin);
             }
         } catch (err) {
-            const errorMessage = err.response?.data?.message || "Something went wrong.";
+            const errorMessage = err.response?.data?.message || err.message || "Something went wrong.";
             loadingSooner.update({
                 title: "Authentication Failed",
                 description: errorMessage,
@@ -116,7 +154,7 @@ const Login = () => {
 
                             <button
                                 type="button"
-                                onClick={() => { setRole("user"); setIsRegistering(false); }}
+                                onClick={() => handleRoleSwitch("user")}
                                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 relative z-10 text-sm font-bold transition-colors duration-300 ${role === "user" ? "text-primary dark:text-white" : "text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300"}`}
                             >
                                 <User className="h-4 w-4" /> Customer
@@ -124,7 +162,7 @@ const Login = () => {
 
                             <button
                                 type="button"
-                                onClick={() => { setRole("admin"); setIsRegistering(false); }}
+                                onClick={() => handleRoleSwitch("admin")}
                                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 relative z-10 text-sm font-bold transition-colors duration-300 ${role === "admin" ? "text-primary dark:text-white" : "text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300"}`}
                             >
                                 <ShieldCheck className="h-4 w-4" /> Admin
@@ -141,7 +179,7 @@ const Login = () => {
                         {/* --- FORM --- */}
                         <form onSubmit={handleSubmit} className="space-y-5">
 
-                            {isRegistering && role === "user" && (
+                            {isRegistering && (
                                 <div className="relative group">
                                     <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-slate-500 group-focus-within:text-primary transition-colors" />
                                     <Input
@@ -151,7 +189,7 @@ const Login = () => {
                                 </div>
                             )}
 
-                            {isRegistering && role === "user" && (
+                            {isRegistering && (
                                 <div className="space-y-1">
                                     <div className="relative group">
                                         <Phone className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-slate-500 group-focus-within:text-green-500 transition-colors" />
@@ -181,7 +219,7 @@ const Login = () => {
                                     />
                                 </div>
 
-                                {/* ✅ FORGOT PASSWORD LINK (Visible only in Login Mode) */}
+                                {/* Forgot Password Link - Only show in Login mode */}
                                 {!isRegistering && (
                                     <div className="flex justify-end pr-1">
                                         <Link
@@ -203,18 +241,24 @@ const Login = () => {
                                     <Loader2 className="animate-spin" />
                                 ) : (
                                     <span className="flex items-center gap-2">
-                                        {isRegistering && role === "user" ? "Create Account" : "Sign In"}
+                                        {isRegistering ? "Create Account" : "Sign In"}
                                         <ArrowRight className="h-4 w-4" />
                                     </span>
                                 )}
                             </Button>
                         </form>
 
-                        {/* Footer Link (Toggle Mode) */}
-                        {role === "user" && (
+                        {/* Footer Link (Conditional Logic) */}
+                        {/* Show registration toggle ONLY if:
+                            1. Role is 'user' (Always allow)
+                            OR
+                            2. Role is 'admin' AND no admin exists yet (Allow first admin registration)
+                        */}
+                        {(role === "user" || (role === "admin" && !adminExists)) && (
                             <div className="mt-8 text-center pt-6 border-t border-gray-100 dark:border-slate-800">
                                 <p className="text-sm text-gray-500 dark:text-slate-400">
-                                    {isRegistering ? "Already have an account?" : "New to Jony Hair Enterprise?"}
+                                    {isRegistering ? "Already have an account?" :
+                                        role === "admin" ? "Setup Admin Account" : "New to Jony Hair Enterprise?"}
                                 </p>
                                 <button
                                     type="button"
@@ -225,6 +269,7 @@ const Login = () => {
                                 </button>
                             </div>
                         )}
+
                     </div>
                 </div>
             </div>

@@ -319,4 +319,16 @@ router.put("/resetpassword/:resetToken", async (req, res) => {
   }
 });
 
+// @route   GET /api/users/admin-exists
+// @desc    Check if any admin user exists
+// @access  Public
+router.get("/admin-exists", async (req, res) => {
+  try {
+    const adminCount = await User.countDocuments({ isAdmin: true });
+    res.json({ exists: adminCount > 0 });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 module.exports = router;
