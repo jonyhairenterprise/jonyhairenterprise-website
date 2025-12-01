@@ -30,7 +30,7 @@ const AdminBlogs = () => {
 
     const fetchBlogs = async () => {
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const { data } = await api.get('/blogs/admin');
             setBlogs(data);
         } catch (error) {
@@ -63,7 +63,7 @@ const AdminBlogs = () => {
 
         setLoading(true);
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const data = new FormData();
 
             data.append('title', formData.title);
@@ -75,7 +75,7 @@ const AdminBlogs = () => {
             data.append('tags', JSON.stringify(tagsArray));
 
             if (formData.image) data.append('image', formData.image);
-            else if (!isEditing && !formData.previewImage) {
+            else if (!editingId && !formData.previewImage) {
                 // Check if main image is missing during creation
                 loadingSooner.update({
                     title: "Missing Image",
@@ -140,7 +140,7 @@ const AdminBlogs = () => {
                             const deleteLoading = sooner.loading("Deleting...", `Removing blog post: ${title}...`);
 
                             try {
-                                const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                                // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                                 await api.delete(`/blogs/${id}`);
 
                                 deleteLoading.update({
@@ -199,7 +199,7 @@ const AdminBlogs = () => {
         );
 
         try {
-            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             await api.put(`/blogs/${id}`, { isActive: !currentStatus });
 
             loadingSooner.update({

@@ -49,12 +49,6 @@ const ProductReviews = ({ product, userInfo }) => {
 
         setReviewLoading(true);
         try {
-            // const config = {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         Authorization: `Bearer ${userInfo.token}`
-            //     }
-            // };
 
             await api.post('/reviews', {
                 rating: Number(rating),
@@ -71,7 +65,9 @@ const ProductReviews = ({ product, userInfo }) => {
             });
 
             // Reload to show the new review and updated average rating
-            setTimeout(() => window.location.reload(), 1000);
+            setTimeout(() => {
+                navigate(0); // This reloads the current route safely
+            }, 1000);
 
         } catch (error) {
 

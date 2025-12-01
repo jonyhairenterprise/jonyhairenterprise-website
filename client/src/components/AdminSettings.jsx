@@ -11,6 +11,24 @@ import {
 } from "lucide-react";
 import { sooner } from "@/components/ui/use-sooner.jsx";
 
+// Helper Component for Section Card
+const SettingsCard = ({ title, icon: Icon, colorClass, bgClass, blobColor, children }) => (
+    <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 group">
+        {/* Decorative Gradient Blob */}
+        <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity pointer-events-none ${blobColor}`}></div>
+
+        <div className="p-8 relative z-10">
+            <div className="flex items-center gap-4 mb-8">
+                <div className={`p-3 rounded-2xl ${bgClass} ${colorClass}`}>
+                    <Icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white">{title}</h3>
+            </div>
+            {children}
+        </div>
+    </div>
+);
+
 const AdminSettings = () => {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -91,24 +109,6 @@ const AdminSettings = () => {
             setLoading(false);
         }
     };
-
-    // Helper Component for Section Card
-    const SettingsCard = ({ title, icon: Icon, colorClass, bgClass, blobColor, children }) => (
-        <div className="relative overflow-hidden bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 group">
-            {/* Decorative Gradient Blob */}
-            <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity pointer-events-none ${blobColor}`}></div>
-
-            <div className="p-8 relative z-10">
-                <div className="flex items-center gap-4 mb-8">
-                    <div className={`p-3 rounded-2xl ${bgClass} ${colorClass}`}>
-                        <Icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-white">{title}</h3>
-                </div>
-                {children}
-            </div>
-        </div>
-    );
 
     return (
         <div className="relative min-h-screen pb-32">
