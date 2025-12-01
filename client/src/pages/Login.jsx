@@ -62,24 +62,21 @@ const Login = () => {
         setLoading(true);
 
         try {
-            // Logic: Admin login is distinct. Registration endpoint is same (/users), backend handles first user = admin logic
-            const isAdminLogin = role === "admin" && !isRegistering;
+            // ✅ FIX: 'isAdminLogin' wala unused variable hata diya hai.
 
-            let url = "/users/login"; // Default Login
-            if (isRegistering) url = "/users"; // Registration
+            // URL Logic: Login ke liye alag, Register ke liye alag
+            let url = "/users/login";
+            if (isRegistering) url = "/users";
 
+            // Payload Logic
             let payload = { email, password };
             if (isRegistering) {
                 payload = { ...payload, name, whatsappNumber };
             }
 
-            // Special check for Admin Login vs User Login endpoint nuances if any
-            // Here we stick to standard flow: Register -> /users, Login -> /users/login
-            // Backend assigns admin role automatically if it's the first user.
-
             const { data } = await api.post(url, payload);
 
-            // Security Check: If trying to login as admin but got user token
+            // ✅ Security Check: Agar 'Admin' tab se login kar rahe hain, par user admin nahi hai
             if (role === "admin" && !data.isAdmin) {
                 throw new Error("Access Denied: Not an admin account.");
             }
