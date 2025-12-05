@@ -7,7 +7,6 @@ const reviewSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
-    // Product ab optional hai. Agar ye null hai, to iska matlab ye "Website Review" hai.
     product: {
       type: mongoose.Schema.Types.ObjectId,
       required: false,
@@ -16,12 +15,10 @@ const reviewSchema = new mongoose.Schema(
     rating: { type: Number, required: true },
     comment: { type: String, required: true },
 
-    // Admin Controls
-    isFeatured: { type: Boolean, default: false }, // Ye Home page par dikhane ke liye toggle hoga
+    isFeatured: { type: Boolean, default: false },
     adminReply: { type: String, default: "" },
     isLoved: { type: Boolean, default: false },
 
-    // Type identify karne ke liye (Future proofing)
     reviewType: {
       type: String,
       enum: ["product", "website"],

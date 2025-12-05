@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, CheckCircle, Globe, Star, ShieldCheck } from "lucide-react";
-import heroImage from '../assets/hero-bg.jpg';
+import heroImage from '../assets/hero-bg.webp';
 import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {

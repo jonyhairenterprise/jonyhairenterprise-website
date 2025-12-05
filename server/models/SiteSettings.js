@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const siteSettingsSchema = new mongoose.Schema(
   {
-    // Contact Info
     email: { type: String, default: "support@jonyhair.com" },
     phone: { type: String, default: "+91 81589 26581" },
     address: {
@@ -10,18 +9,16 @@ const siteSettingsSchema = new mongoose.Schema(
       default: "Beldanga, Murshidabad, West Bengal, India - 742133",
     },
 
-    // Social Links
     socials: {
       facebook: { type: String, default: "#" },
       instagram: { type: String, default: "#" },
       twitter: { type: String, default: "#" },
     },
 
-    // WhatsApp Settings
     whatsapp: {
       number: {
         type: String,
-        default: "918158926581", // CountryCode+Number
+        default: "918158926581",
       },
       message: {
         type: String,
@@ -29,11 +26,10 @@ const siteSettingsSchema = new mongoose.Schema(
       },
     },
 
-    // ✅ NEW: Telegram Alert Settings
     telegram: {
       enabled: { type: Boolean, default: false },
-      botToken: { type: String, default: "" }, // BotFather se milega
-      chatId: { type: String, default: "" }, // Admin ka chat id / group id
+      botToken: { type: String, default: "" },
+      chatId: { type: String, default: "" },
     },
 
     // Google Map Embed URL

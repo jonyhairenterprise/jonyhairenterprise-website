@@ -11,7 +11,6 @@ const quoteSchema = new mongoose.Schema({
     required: true,
     ref: "Product",
   },
-  // User ne jo variations select kiye hain product page par
   selectedDetails: {
     length: { type: String, required: true },
     color: { type: String, required: true },
@@ -22,7 +21,6 @@ const quoteSchema = new mongoose.Schema({
     enum: ["Pending", "Contacted"],
     default: "Pending",
   },
-  // Auto-delete timer: 48 Hours (172800 seconds)
   createdAt: {
     type: Date,
     default: Date.now,

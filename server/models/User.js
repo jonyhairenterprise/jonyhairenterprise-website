@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema(
     avatar: { type: String, default: "" },
     whatsappNumber: { type: String, default: "" },
 
-    // ✅ Reset Password Fields
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   },
@@ -21,10 +20,9 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// ✅ FIX: "next" parameter ko hata diya gaya hai (async function automatically handles promises)
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) {
-    return; // Sirf return karein, next() nahi
+    return;
   }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);

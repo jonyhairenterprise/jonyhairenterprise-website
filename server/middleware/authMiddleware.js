@@ -4,19 +4,15 @@ const User = require("../models/User");
 const protect = async (req, res, next) => {
   let token;
 
-  // Check agar header mein token hai (Bearer token)
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // Token nikalo
       token = req.headers.authorization.split(" ")[1];
 
-      // Verify karo
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // User dhundo aur req mein daal do
       req.user = await User.findById(decoded.id).select("-password");
 
       next();
@@ -30,7 +26,6 @@ const protect = async (req, res, next) => {
   }
 };
 
-// Check karo ki user Admin hai ya nahi
 const admin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();

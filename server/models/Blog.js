@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const blogSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    // SEO Friendly URL ke liye (e.g., "my-first-blog")
+    // SEO Friendly URL
     slug: { type: String, required: true, unique: true },
     image: { type: String, required: true }, // Cover Image
     content: { type: String, required: true }, // Rich Text HTML

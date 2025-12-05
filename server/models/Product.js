@@ -5,8 +5,6 @@ const productSchema = new mongoose.Schema(
     name: { type: String, required: true },
     category: { type: String, required: true },
 
-    // New: Pricing ab Length ke saath juda hua hai
-    // Example: [{ length: "10 inch", price: 100 }, { length: "12 inch", price: 200 }]
     variants: [
       {
         length: { type: String, required: true },
@@ -20,16 +18,16 @@ const productSchema = new mongoose.Schema(
     isBestSeller: { type: Boolean, default: false },
 
     // Images
-    image: { type: String, required: true }, // Main Image
-    gallery: [{ type: String }], // Extra Images (Max 5)
+    image: { type: String, required: true },
+    gallery: [{ type: String }],
 
     // Colors (Dynamic Array)
     colors: [{ type: String }],
 
-    // Highlights (Ab ye Rich Text HTML String hoga)
+    // Highlights
     highlights: { type: String },
 
-    description: { type: String }, // Normal description
+    description: { type: String },
 
     shipping: {
       from: { type: String, default: "Beldanga, West Bengal" },

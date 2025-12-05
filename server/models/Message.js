@@ -15,7 +15,6 @@ const messageSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // ✅ NEW FIELD: WhatsApp Number
     whatsappNumber: {
       type: String,
       required: true,
@@ -27,7 +26,6 @@ const messageSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // Admin review ke liye status
     isRead: {
       type: Boolean,
       default: false,
