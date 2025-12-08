@@ -22,14 +22,29 @@ const Gallery = () => {
         }
     };
 
+    // SEO: ImageGallery Schema Structure
+    const gallerySchema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Jony Hair Enterprise Gallery",
+        "description": "Visual collection of Raw Indian Hair textures, bulk hair bundles, and client results.",
+        "url": window.location.href,
+        "mainEntity": {
+            "@type": "ImageGallery",
+            "name": "Premium Hair Textures",
+            "image": images.map(img => img.imageUrl) // Dynamically adding all images to schema
+        }
+    };
+
     return (
         <div className="min-h-screen bg-gray-50/50 dark:bg-slate-950 relative overflow-hidden pt-24 pb-20 transition-colors duration-500">
 
             <SEO
-                title="Our Gallery | Real Client Results & Textures"
-                description="Explore the Jony Hair Enterprise gallery. See real photos of our Raw Indian Hair, Bulk Hair, and Premium Extensions before you buy."
-                keywords="hair gallery, raw hair photos, indian hair textures, Jony Hair images, real client results"
+                title="Our Gallery | Raw Hair Textures & Real Photos"
+                description="Explore high-resolution photos of Jony Hair Enterprise's products. See the quality of our Raw Indian Wavy, Curly, and Straight hair before you buy."
+                keywords="hair gallery, raw hair photos, indian hair textures, Jony Hair images, real client results, hair extension photos, bulk hair images"
                 url={window.location.href}
+                schema={gallerySchema} // Passing custom schema here
             />
 
             {/* --- 1. MODERN AMBIENT BACKGROUND (The "Vibe") --- */}

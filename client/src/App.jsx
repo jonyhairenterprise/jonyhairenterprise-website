@@ -38,6 +38,7 @@ import Quotes from './pages/admin/Quotes';
 import BlogsAdmin from './pages/admin/Blogs';
 import Messages from './pages/admin/Messages';
 import AdminGallery from './pages/admin/AdminGallery';
+import GalleryPreview from './components/GalleryPreview';
 
 // --- LAYOUTS ---
 
@@ -68,6 +69,7 @@ const Home = () => (
     <MostSelling />
     <ClientReviews />
     <FaqSection />
+    <GalleryPreview />
     <BlogSection />
     <ContactSection />
   </>
