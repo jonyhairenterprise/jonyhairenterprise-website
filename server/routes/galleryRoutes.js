@@ -13,20 +13,39 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// --- Multer Config (Memory Storage) ---
+// --- Multer Config ---
 const storage = multer.memoryStorage();
 const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB Limit
 });
 
-// --- Helper: Upload to Cloudinary (Convert to WebP) ---
+// --- Helper: Upload Middleware with Error Handling ---
+// Ye naya function hai jo Multer errors ko catch karega
+const uploadImage = (req, res, next) => {
+  upload.single("image")(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      if (err.code === "LIMIT_FILE_SIZE") {
+        return res
+          .status(400)
+          .json({ message: "File size too large. Max limit is 5MB." });
+      }
+      return res.status(400).json({ message: "Image upload error." });
+    } else if (err) {
+      return res.status(500).json({ message: "Server upload error." });
+    }
+    // Agar koi error nahi hai, to aage badho
+    next();
+  });
+};
+
+// --- Helper: Upload to Cloudinary ---
 const uploadToCloudinary = (fileBuffer) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder: "jony-hair-gallery",
-        format: "webp", // Force convert to WebP
+        format: "webp",
         resource_type: "image",
       },
       (error, result) => {
@@ -40,7 +59,7 @@ const uploadToCloudinary = (fileBuffer) => {
   });
 };
 
-// --- Helper: Get Public ID for Deletion ---
+// --- Helper: Get Public ID ---
 const getPublicIdFromUrl = (url) => {
   if (!url) return null;
   try {
@@ -58,8 +77,6 @@ const getPublicIdFromUrl = (url) => {
 // ============================================================================
 
 // @route   GET /api/gallery
-// @desc    Get all images
-// @access  Public
 router.get("/", async (req, res) => {
   try {
     const images = await Gallery.find().sort({ createdAt: -1 });
@@ -70,9 +87,8 @@ router.get("/", async (req, res) => {
 });
 
 // @route   POST /api/gallery
-// @desc    Upload new image
-// @access  Private (Admin)
-router.post("/", protect, admin, upload.single("image"), async (req, res) => {
+// Yahan humne 'uploadImage' use kiya hai instead of seedha 'upload.single'
+router.post("/", protect, admin, uploadImage, async (req, res) => {
   try {
     const { altText } = req.body;
 
@@ -82,10 +98,8 @@ router.post("/", protect, admin, upload.single("image"), async (req, res) => {
         .json({ message: "Please select an image to upload." });
     }
 
-    // 1. Upload to Cloudinary
     const imageUrl = await uploadToCloudinary(req.file.buffer);
 
-    // 2. Save to DB
     const newImage = new Gallery({
       imageUrl,
       altText: altText || "Jony Hair Gallery Image",
@@ -100,9 +114,7 @@ router.post("/", protect, admin, upload.single("image"), async (req, res) => {
 });
 
 // @route   PUT /api/gallery/:id
-// @desc    Update image (Replace file OR update text)
-// @access  Private (Admin)
-router.put("/:id", protect, admin, upload.single("image"), async (req, res) => {
+router.put("/:id", protect, admin, uploadImage, async (req, res) => {
   try {
     const { altText } = req.body;
     const image = await Gallery.findById(req.params.id);
@@ -111,18 +123,13 @@ router.put("/:id", protect, admin, upload.single("image"), async (req, res) => {
       return res.status(404).json({ message: "Image not found" });
     }
 
-    // Update Alt Text
     if (altText) image.altText = altText;
 
-    // Update Image File (If provided)
     if (req.file) {
-      // 1. Purani image delete karo Cloudinary se
       const publicId = getPublicIdFromUrl(image.imageUrl);
       if (publicId) {
         await cloudinary.uploader.destroy(publicId);
       }
-
-      // 2. Nayi image upload karo
       const newImageUrl = await uploadToCloudinary(req.file.buffer);
       image.imageUrl = newImageUrl;
     }
@@ -136,8 +143,6 @@ router.put("/:id", protect, admin, upload.single("image"), async (req, res) => {
 });
 
 // @route   DELETE /api/gallery/:id
-// @desc    Permanently delete image (DB + Cloudinary)
-// @access  Private (Admin)
 router.delete("/:id", protect, admin, async (req, res) => {
   try {
     const image = await Gallery.findById(req.params.id);
@@ -145,15 +150,12 @@ router.delete("/:id", protect, admin, async (req, res) => {
       return res.status(404).json({ message: "Image not found" });
     }
 
-    // 1. Delete from Cloudinary
     const publicId = getPublicIdFromUrl(image.imageUrl);
     if (publicId) {
       await cloudinary.uploader.destroy(publicId);
     }
 
-    // 2. Delete from DB
     await image.deleteOne();
-
     res.json({ message: "Image permanently deleted" });
   } catch (err) {
     console.error("Gallery Delete Error:", err);

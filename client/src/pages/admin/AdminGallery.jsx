@@ -41,7 +41,17 @@ const AdminGallery = () => {
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
+
         if (selectedFile) {
+            // 5MB Validation Check
+            if (selectedFile.size > 5 * 1024 * 1024) {
+                sooner.error("File Too Large", "Please upload an image smaller than 5MB.");
+                e.target.value = null; // Input reset karo
+                setFile(null);
+                setPreview("");
+                return;
+            }
+
             setFile(selectedFile);
             setPreview(URL.createObjectURL(selectedFile));
         }
