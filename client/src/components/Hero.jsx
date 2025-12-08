@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, CheckCircle, Globe, Star, ShieldCheck } from "lucide-react";
-import heroImage from '../assets/hero-bg.webp';
 import { useNavigate } from 'react-router-dom';
+
+import heroImage from '../assets/hero-bg.webp';
 
 const Hero = () => {
     const navigate = useNavigate();
@@ -90,10 +91,11 @@ const Hero = () => {
 
                         {/* Main Image Container */}
                         <div className="relative w-full max-w-lg aspect-[3/4] rounded-[3rem] overflow-hidden shadow-2xl dark:shadow-black/50 border-[6px] border-white dark:border-slate-800 transform rotate-[-2deg] hover:rotate-0 transition-transform duration-700 ease-out">
+                            {/* Changed object-center to object-top to show head */}
                             <img
                                 src={heroImage}
                                 alt="Premium Raw Indian Hair model"
-                                className="w-full h-full object-cover object-center scale-110 hover:scale-100 transition-transform duration-1000 ease-out"
+                                className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-1000 ease-out"
                             />
 
                             {/* Gradient Overlay */}
@@ -111,8 +113,9 @@ const Hero = () => {
                             </div>
                         </div>
 
-                        {/* Floating Glass Card 2 (Top Right) */}
-                        <div className="absolute top-20 -right-4 sm:right-0 lg:-right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 dark:border-slate-700 animate-bounce-slow delay-700">
+                        {/* Floating Glass Card 2 (Positioned Bottom on Mobile, Top Right on Desktop) */}
+                        {/* Mobile: bottom-10 right-4 | Desktop: lg:top-20 lg:bottom-auto lg:-right-8 */}
+                        <div className="absolute -bottom-6 -right-2 lg:bottom-auto lg:top-20 sm:right-0 lg:-right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 dark:border-slate-700 animate-bounce-slow delay-700">
                             <div className="flex items-center gap-1 mb-1">
                                 {[...Array(5)].map((_, i) => (
                                     <Star key={i} className="h-3 w-3 text-yellow-400 fill-yellow-400" />

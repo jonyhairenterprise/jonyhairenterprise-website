@@ -16,6 +16,7 @@ const quoteRoutes = require("./routes/quoteRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const sitemapRoutes = require("./routes/sitemapRoutes");
+const galleryRoutes = require("./routes/galleryRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -46,6 +47,7 @@ app.use("/api/settings", settingsRoutes);
 app.use("/api/quotes", quoteRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/gallery", galleryRoutes);
 
 // Optional: unknown route handler (debug ke liye)
 app.use((req, res) => {

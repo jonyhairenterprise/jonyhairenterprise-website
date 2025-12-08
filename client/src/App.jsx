@@ -16,6 +16,7 @@ import Contact from './pages/Contact';
 import Shop from './pages/Shop';
 import SearchPage from './pages/SearchPage';
 import SEO from './components/SEO';
+import Gallery from './pages/Gallery';
 
 // Blog Imports
 import BlogSection from './components/BlogSection';
@@ -36,6 +37,7 @@ import Settings from './pages/admin/Settings';
 import Quotes from './pages/admin/Quotes';
 import BlogsAdmin from './pages/admin/Blogs';
 import Messages from './pages/admin/Messages';
+import AdminGallery from './pages/admin/AdminGallery';
 
 // --- LAYOUTS ---
 
@@ -91,6 +93,9 @@ function App() {
         {/* Blog ROUTES */}
         <Route path="/blogs" element={<BlogsPage />} />
         <Route path="/blog/:slug" element={<BlogDetails />} />
+
+        {/* Gallery ROUTES */}
+        <Route path="/gallery" element={<Gallery />} />
       </Route>
 
       {/* --- AUTH ROUTES (Standalone) --- */}
@@ -110,6 +115,7 @@ function App() {
         <Route path="blogs" element={<BlogsAdmin />} />
         <Route path="messages" element={<Messages />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="/admin/gallery" element={<AdminGallery />} />
       </Route>
 
     </Routes>

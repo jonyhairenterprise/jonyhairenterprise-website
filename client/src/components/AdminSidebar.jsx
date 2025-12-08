@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import {
     LayoutDashboard, Package, LogOut, ShoppingBag,
     FolderKanban, MessageSquareQuote, ClipboardList,
-    ChevronRight, Settings, BookOpen, HelpCircle, Sparkles, Mail
+    ChevronRight, Settings, BookOpen, HelpCircle, Sparkles, Mail, Image
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +29,7 @@ const AdminSidebar = ({ isSidebarOpen }) => {
         { name: 'Feedback', path: '/admin/reviews', icon: MessageSquareQuote },
         { name: 'Blogs', path: '/admin/blogs', icon: BookOpen },
         { name: 'FAQs', path: '/admin/faqs', icon: HelpCircle },
+        { name: 'Gallery', path: '/admin/gallery', icon: Image },
         { name: 'Settings', path: '/admin/settings', icon: Settings },
     ];
 
