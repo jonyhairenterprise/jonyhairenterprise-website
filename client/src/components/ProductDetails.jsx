@@ -83,12 +83,17 @@ const ProductDetails = () => {
 
   // --- SEO & SCHEMA GENERATION START ---
 
-  // 1. Calculate Minimum Price from Variants (Required for 'Offers' Schema)
+  // 1. Calculate Minimum Price from Variants
   const minPrice = product?.variants?.length
     ? Math.min(...product.variants.map(v => Number(v.price)))
     : 0;
 
-  // 2. Construct Full Product Schema (Fixes Google Search Console Errors)
+  // 2. Calculate Date for 'priceValidUntil' (Next Year)
+  const nextYear = new Date();
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+  const priceValidUntil = nextYear.toISOString().split('T')[0];
+
+  // 3. Construct Full Product Schema (Fixes Google Search Console Warnings)
   const productSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
@@ -105,8 +110,30 @@ const ProductDetails = () => {
       "url": window.location.href,
       "priceCurrency": "USD",
       "price": minPrice,
+      "priceValidUntil": priceValidUntil,
       "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      "itemCondition": "https://schema.org/NewCondition"
+      "itemCondition": "https://schema.org/NewCondition",
+
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": 0, // Assuming shipping is calculated later or free
+          "currency": "USD"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "US" // Targeting US Market primarily
+        }
+      },
+
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "US",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 7,
+        "returnMethod": "https://schema.org/ReturnByMail"
+      }
     },
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -115,13 +142,8 @@ const ProductDetails = () => {
     }
   };
 
-  // Smart title combining Product Name + Location keywords.
   const seoTitle = `${product.name} - Best Manufacturer Price in Beldanga, India`;
-
-  // Rich description including category and quality assurance.
   const seoDesc = `Buy ${product.name} directly from factory in Beldanga. 100% Raw Indian ${product.category}, single donor, unprocessed. Worldwide shipping available.`;
-
-  // Dynamic keywords combining product specifics with location tags.
   const seoKeywords = `${product.name}, ${product.category} exporter India, Best human hair Beldanga, Raw hair supplier Murshidabad, ${product.name} wholesale price`;
   // --- SEO END ---
 
@@ -135,8 +157,8 @@ const ProductDetails = () => {
           keywords={seoKeywords}
           image={product.image}
           url={window.location.href}
-          type="product"         // ✅ Added Type
-          schema={productSchema} // ✅ Added Dynamic Schema
+          type="product"
+          schema={productSchema}
         />
       )}
 
