@@ -23,7 +23,7 @@ const ProductDetails = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        window.scrollTo(0, 0); // Reset scroll on id change
+        window.scrollTo(0, 0);
 
         // 1. Get User Info
         const storedUser = JSON.parse(localStorage.getItem('userInfo'));
@@ -36,13 +36,13 @@ const ProductDetails = () => {
         // 3. Fetch All Products (for Related logic)
         const { data: allProds } = await api.get('/products');
 
-        // 4. Filter Related Products (Same Category, Exclude Current)
+        // 4. Filter Related Products
         const related = allProds
           .filter((p) => p.category === currentProduct.category && p._id !== currentProduct._id)
           .slice(0, 4);
         setRelatedProducts(related);
 
-        // 5. Fetch Site Settings (For WhatsApp logic)
+        // 5. Fetch Site Settings
         const { data: settings } = await api.get('/settings');
         setSiteSettings(settings);
 
@@ -83,7 +83,7 @@ const ProductDetails = () => {
 
   // --- SEO & SCHEMA GENERATION START ---
 
-  // 1. Calculate Minimum Price from Variants
+  // 1. Calculate Minimum Price
   const minPrice = product?.variants?.length
     ? Math.min(...product.variants.map(v => Number(v.price)))
     : 0;
@@ -93,7 +93,7 @@ const ProductDetails = () => {
   nextYear.setFullYear(nextYear.getFullYear() + 1);
   const priceValidUntil = nextYear.toISOString().split('T')[0];
 
-  // 3. Construct Full Product Schema (Fixes Google Search Console Warnings)
+  // 3. Construct Full Product Schema (Optimized for Merchant Listing)
   const productSchema = {
     "@context": "https://schema.org/",
     "@type": "Product",
@@ -114,25 +114,44 @@ const ProductDetails = () => {
       "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       "itemCondition": "https://schema.org/NewCondition",
 
+      // --- ✅ FIXED: Delivery Time Added ---
       "shippingDetails": {
         "@type": "OfferShippingDetails",
         "shippingRate": {
           "@type": "MonetaryAmount",
-          "value": 0, // Assuming shipping is calculated later or free
+          "value": 0,
           "currency": "USD"
         },
         "shippingDestination": {
           "@type": "DefinedRegion",
-          "addressCountry": "US" // Targeting US Market primarily
+          "addressCountry": "US"
+        },
+        // Google needs to know how fast you deliver
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 2, // 1-2 Days to Pack
+            "unitCode": "d"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 3,
+            "maxValue": 7, // 3-7 Days to Deliver
+            "unitCode": "d"
+          }
         }
       },
 
+      // --- ✅ FIXED: Return Fees Added ---
       "hasMerchantReturnPolicy": {
         "@type": "MerchantReturnPolicy",
         "applicableCountry": "US",
         "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
         "merchantReturnDays": 7,
-        "returnMethod": "https://schema.org/ReturnByMail"
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn" // Added: Free Returns flag
       }
     },
     "aggregateRating": {
