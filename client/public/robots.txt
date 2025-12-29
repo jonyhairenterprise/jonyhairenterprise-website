@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
-
-Disallow: /admin
-Disallow: /resetpassword
-Disallow: /forgotpassword
+Disallow: /admin/
+Disallow: /my-account/
+Disallow: /resetpassword/
 
 Sitemap: https://jonyhairenterprise.com/sitemap.xml
+Host: https://jonyhairenterprise.com

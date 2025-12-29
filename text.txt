@@ -1,0 +1,389 @@
+- main har chizz ko next next kar ke puchunga.
+- entire chat main kabhi bhi canvas formatting ka ishtemal maat karna.
+- entire chat main hinglish main baat karna.
+- code future proof and advanced tarikhe se likhna.
+- koi bi changes karne se pehele entire chat ko and files ko dubara double check karna.
+
+
+
+
+
+
+
+
+username : jonyhairenterprise
+password : jonyhairenterprise94
+
+mongodb+srv://jonyhairenterprise:jonyhairenterprise94@jonyhairenterprise.bu4uges.mongodb.net/?appName=jonyhairenterprise
+
+
+
+
+
+
+
+
+product details page main left side main main image ushke niche ush product ki aur bhi images users slides karke click karega to main image ke jaga vo image aa jayega.. right side par sabse pehele product ka name ushke niche review ( review star ( 4.8 ) how many reviews ) is future ye dynamic hoga. 
+ushke niche price example : $110 - $130
+*Pricing is flexible. ye ek chota sa lebel type ka kuch hoga.
+ushe ke nicge users colors selct kar payega example : 
+Natural Shades:
+
+Natural Black, Dark Brown, Blonde, Burgundy, Honey Blonde
+
+ushke niche users length choose kar payenga. example : 
+Available Lengths:
+
+10 inch, 12 inch, 14 inch, 16 inch, 18 inch, 20 inch, 22 inch, 24 inch, 26 inch, 28 inch, 30 inch, 32 inch, 34 inch
+ush ke niche stock ka count . example : Only 5 Stocks Left
+ushke niche Product Highlights . example : 
+Product Highlights:
+
+- 100% natural, raw human hair with no processing, leaving it beautifully pure and ready for your creativity.
+- Tangle-free and ready for use in all types of hair extensions and wigs.
+- Available in a wide range of natural shades to perfectly match your desired look.
+
+ushke niche get quote now button
+
+ushke niche shipping infos. example : 
+Shipping Information
+
+Delivery From
+Beldanga, West Bengal
+
+Shipping
+International Shipping
+
+Arrive
+Between 3-5 Days
+
+reviews bhi hoga ish page main jo jo users ne review diya hoga aur user khud review de bhi sakta hai. ishke liye ek form/field bhi hoga.. 
+
+main just socha ish UI ko.. aapko jo sahilage achhe se developer aur users ke pespective se soch kar implement karo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+admin admin panel se.. jab product ka listing karega..
+product ka name ka ek input field hoga 
+
+Category, hoga phir price range hoga..
+price range admi ish tarha denga..
+pehele users jitna chaiye utna filed add kar sakta hai price range keliye kiukli
+do do karke ayega.. matlab example : 
+10 inch 100
+12 inch 200
+14 inch 300
+ish tara jitna chiye utna filds aayega..
+stock thakbe, ishke baad
+images , images main ek main image jo pehel dikhega ushke niche jo ushi products ke image rehenga vo bhi daal payenga. main image ke alwa maximum5 images daal payenga per product ke liye.
+
+Available lenght fild ka aab jarurat nahi vo price ke saath e include hoga 
+color ke fileds bhi ek ek karke users add fieldds karke input kar payenga.
+Highlights fildes main users reach text add kar payenga user sko option dikhega konsi fomatting chaiye example titles ( 1,2 , 3, 4, 5), bullet points,  bold cursive text etc
+
+
+users products details page main jab lenght choose karenga ushke hisab se price updat ehonga.
+
+ishe impolement kar do.. achhe se main next next karke puchunga.
+
+
+
+
+
+
+
+
+
+
+
+
+
+admin page ka UI change kar do.
+upar ek navbar rehenga
+side main side bar..
+navbar ek left side main logo rehenga.
+side main pehele
+icon ( <LayoutDashboard /> ) dashboard
+ushke niche 
+icon ( <Package /> ) products
+side bar ke ekbare bottom main logout ka button hoga
+<LogOut /> logout button par click karle ke baad ek popup open hoga 
+kuch text likha hua hoga 
+example : 
+👋 See You Later!
+Are you sure you want to sign out?
+We'll keep the lights on for you until you return!
+ushke bad do button hoga 
+Stay Here, Yes, Log Me Out 
+Yes, Log Me Out par click karle ke baad logout ho jayenga.
+
+dashboard page main future main stats honge abhi khali chod do
+products page main phele kuch likha hua honga right par add product ka card honga..
+ushke niche exsiting products cards rehenga.. products section main jis tara ki cards ta UI hai thik vohi.
+
+add product par click karle ke baad ek propup open hoga uya par sare fields rehenga.
+
+ishe implement kar do achhe se main next next karke puchunga
+
+
+
+
+
+
+
+
+
+
+admin main ek naya page ek karo Category 
+<FolderKanban /> Category
+
+iya par admin category Create, edit, update, delete kar payenga.
+
+aur products main jo category ka option hai vo dynamic ho jayenga drop down jaisa.. aur ek chizz update karna stock ka input hai ushe increment decrement jaisa kar dena modern
+
+implement karo main next next karke puchunga
+
+
+
+
+
+
+
+
+
+
+
+product section main product card ke upar category filter buttons add kar do.
+pehele all ushke baad sare categories buttons rehenge.
+mobile view main slide karke karke aayega.
+
+
+
+
+
+
+Our MOst selling Products section chaiye.
+Hero section and product section ke middle main ek aur section add kar do.
+Our most selling products , ish section main total 4 cards rehenga.. cards ka UI/UX products section ka cards jaisa hoga..
+admin/products main jo cards hai uya par ahr ek cards ke liye toggle switch hoga.. aagar toggle switch on hua hoga to vo Our most selling products main add ho jayenga.. ye toogle edit bhi ho sakta hai.
+
+ishe implement kar do. main next next kar ke puchunga.
+
+
+
+
+
+
+
+
+pehele home section, ushke baad latest product section, ushke baad most selling products section hai, ushke baad ek aur section add kar do. Our Client's Review Section.
+client products main jo jo review dalega, vo sare reviews admin panel main categories page ke baad ek aur page ayega Reviews karke uha par dikhega.
+all reviews saath konsi product ke liye review dala hai customer le vo bhi dikhega.
+aur admin can react ( love react ) that review also admin can reply that review.
+
+ek aur chizz , users review aagar daalle ke liye sign in karla parega.. users sign in .
+admin ke liye sign in page par ek sliding type ka kuch bana dena admin sign in and sign in as user aisa kuch
+
+aur ek chizzz admin jo jo review main toggle switch on  karega vo vo reviews main page main review section main add ho jayega.. reviews all sliding hoga.. auto sliding and user hand se slide kar sake.. UI/UX accha hona chaiye..
+
+ishe implement kar do. main next next karke puchunga.
+
+
+
+
+
+
+
+
+
+
+Latest Collection, Our Most Selling Products, testimonial section, Faq section 
+
+ko thoda modern kar do aap gradient / blob add kar sakte ho or aap jo acche samjo vo karo lkein, ishe sare section achha dikhna chiye..
+act as you are great at UI/UX designer also you are great at Web Development.
+aap ishe fix karo professionally code karna...
+main next next karke puchunga.
+
+product cards ko thoda lamba bhi sakte ho..
+
+
+
+
+
+
+
+
+
+
+footer main jo social links, address, phone number, email hai aur contact page main jo phone number, email, address haivo saab admin panel se control (CRUD) hoga.
+aur contact page main jo start chat ka button hai whatsapp par jo ayega vo admin panel se controll hoga uya par admin khud admin customise text bharega aagar user start chat button par click karta hai to admin panel main jo whatsapp par aane ke liye number diya hua hoga ush number main ush customize text aayega.. aur contact page main jo map hai vo bhi admin khud admin panel se CRUD kar payenga. Feedback ke niche ek aur nav links means page add hoga
+
+ish function ko implement kar do. main next next karke puchunga.
+
+
+
+
+
+
+
+
+
+
+customer/khud ka name, password change kar payenga. aur avatar image bhi change kar payenga (CRUD),
+aur admin Name, email, password se register karenga, admin bhi name, passwords change kar payenga. admin avatar image bhi change (CRUD) payenga. user My Account main profile info main se saab controll kar payenga profile ka.
+
+aagar databse main koi bhi admin nahi hai tab hi admin register kar payenga, aagar already ek admin hai to dusri admin register nahi kar payenga..
+pehele admin supar admin hoga. aur admin avatar par dropdown ayenga edit profile ka option hoga uya par click karke ek popup open hoga uya se saab controll karenga
+
+ish function ko implement kar do. main next next karke puchunga.
+
+
+
+
+
+
+
+
+
+mujhe ek features chaiye.
+aagar user product details page main Request Quote button par click karta hai to vo button loading hoga phir ek confirmation message ayega ki example your request to quote send succefully wait 3-4 hours admin will reach out soon..
+user ne jo product ka quote kara hai vo product ka sare details price, shade/color, length jo jo user le select kiya hoga sare details ek sundar sa message ke saath admin panel main chala jayega..admin panel main feedback ke niche ek aur page add kardo ja par users ka details saho sare quotes rehenga.
+
+users aagar login/register nahi hai to quote nahi daal sakta.login fast ish tara ke message ayega ushe.
+
+sare quotes expireis hoga hours main . ek timer bhi dikhega, 48 hours ke baad quotes admin panel se delete ho jayenga.
+
+au rek chizz Request Quote on WhatsApp button main text to thoda creative clickable text kar dena.
+
+ishe achhe se implement karo, main next next karke puchunga.
+
+
+
+
+
+
+
+
+
+
+
+
+user panel and admin panel ke har jaga mujhe toast message lagana hai isshe user ka experience bohot achha hoga.. please user panel and admin panel ke har jaga toast message laga do. kuch kuch jaga interactiveity toast message bhi hoga.
+
+ishe achhe se implement karo future proof advanced tarikhe se. main next next karke puchunga
+
+
+
+
+
+
+
+
+
+next.. just jaha par change karna hoga utna hi batana details ke saath. pura code maat likhna or jis function change ho raha hai just vo function ko hi likhna.
+
+
+
+
+
+
+
+
+
+
+
+Here is my client's website.
+Client name : Tofajul Aktar
+Business Estabinis Year : 2016
+His Address : Beldanga, Begun bari, 742133, Murshidabad, West Bengal, INDIA
+Shiffing : FEDx, DHL, Blue Dart, and via Ship
+
+His customer base : outside INDIA ( i donot research but he tell most customers reachout to hium via social media from USA, Brazill, Indonesia, Phillipines, London, etc)
+His targeted customer : most of parlours, hair exporter/manufature business like him and jo jo ish categories ka interest hai.
+He Sell : Temple Hair, Bulk Hair, Curly Hair, Single Doner Hair, Double Doner Hair, Remy Hair, Weft Hair, Double Round Hair, Wig, I-Tep, Frontal Hair, Clouser, Baby Curly, Blonde Hair Guti Hair.
+He said his most selling items are : Bulk Hair.
+
+I promise him if someone ( from any country ) search on google with this keywords :
+Best human hair exporter in Beldanga,
+Best human hair manufatures in beldanga,
+best humna hair supplier in beldanga,
+best human hair wholeseller in beldanga,
+best remy hair supplier in beldanga,
+best virgin remy hair supplier in beldanga,
+etc...20+ keywords ( maine ye keywords ko research nahi kiya ),
+
+maine unko bola hair ki pehele aapko beldanga main toip layenge phir murshidabad, phir kolkata, phi west bengal, phir india,, iasa aisa jaunga..
+
+unone aur ek chizz chaha : Jony Hair Enterprise likh kar aagar koi search kare to AI Overvview main aaiye unka sare info.
+
+Hey, gemini act as a YOU are great at SEO. also you are expert at full stack web development.
+achhe se socho achhe se sare files ko double check karo. aur ushke baad.. SEO karo.. ek ke karke..
+main next next karke puchunga.
+
+
+
+
+
+
+
+
+
+
+i donot want to upload image as a Image URL, i upload image as a webp format and save in cloudinary. admin canadd,  edit, update and delete the image measn full CRUD.
+admin jo image ko delete karenga vo image permanently delete ho jayega databse ( monodb and cloudinary se)
+
+ishe implement karo. main next next karke puchunga.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Act as a You are great and expert at SEO.
+main ish keywords main Jony Hair Enterprise Website ko rank karwana chahatahu Top par.
+website ko host karwe 1 month ho gya .
+
+Keyword lists: 
+- Best human hair exporter in Beldanga,
+- Best human hair manufatures in beldanga,
+- best humna hair supplier in beldanga,
+- best human hair wholeseller in beldanga,
+- best human hair supplier in beldanga,
+- best hair supplier in beldanga,
+- best hair manufatures in beldanga,
+- best hair wholeseller in beldanga,
+- Best Bulk Hair supplier in Beldanga
+- Best Curly Hair supplier in Beldanga
+- Best Blonde Hair supplier in Beldanga
+- Best Human Wig Hair supplier in Beldanga
+- Best Frontal Hair supplier in Beldanga
+- Best I-Tip Extension supplier in Beldanga
+- Best Baby Curly Extension supplier in Beldanga
+- Best Single Doner Extension supplier in Beldanga
+- Best Double Doner Extension supplier in Beldanga
+- Best Weft Extension supplier in Beldanga
+- Best Double Drawn Extension supplier in Beldanga
+- Best Clouser Extension supplier in Beldanga
+- Best Remy Extension supplier in Beldanga
+- Best Temple Hair Extension supplier in Beldanga
+- Best Guti Hair Extension supplier in Beldanga
+
+aur main chahata hu ki Jony Hair Enterprise likh ke Google pe search karne pe AI Overview khule aur information de.. ish business ke bare main.
