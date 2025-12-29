@@ -1,14 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, keywords, image, url, type = 'website' }) => {
+const SEO = ({ title, description, keywords, image, url, type = 'website', schema = null }) => {
 
     const siteTitle = "Jony Hair Enterprise";
     const currentUrl = url || window.location.href;
-    const defaultImage = "https://jonyhairenterprise.com/logo.webp"; // Ensure this matches your actual domain
+    const defaultImage = "https://jonyhairenterprise.com/logo.webp";
     const defaultDescription = "Jony Hair Enterprise (Est. 2016) is the best human hair manufacturer & wholesaler in Beldanga, Murshidabad. We export premium Bulk Hair, Remy Hair, and Temple Hair globally.";
 
-    // Aapke diye huye keywords ko default list mein daal rahe hain
+    // Default Keywords if none provided
     const defaultKeywords = [
         "Best human hair exporter in Beldanga",
         "Best human hair manufactures in beldanga",
@@ -33,20 +33,18 @@ const SEO = ({ title, description, keywords, image, url, type = 'website' }) => 
         "Temple Hair India"
     ].join(", ");
 
-    // --- FUTURE PROOF SCHEMA.ORG (JSON-LD) ---
-    // Ye Google AI Overview trigger karne ke liye bohot zaruri hai
-    const schemaData = {
+    // --- 1. HOME / LOCAL BUSINESS SCHEMA (For Root Domain) ---
+    const localBusinessSchema = {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness", // Local SEO ke liye critical
+        "@type": "LocalBusiness",
         "name": "Jony Hair Enterprise",
         "alternateName": "Jony Hair Beldanga",
         "image": [
-            image || defaultImage,
             "https://jonyhairenterprise.com/logo.webp"
         ],
         "url": "https://jonyhairenterprise.com",
-        "telephone": "+91918158926581", // Ensure format is correct
-        "email": "support@jonyhairenterprise.com", // Verify email
+        "telephone": "+91918158926581",
+        "email": "support@jonyhairenterprise.com",
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
@@ -63,51 +61,56 @@ const SEO = ({ title, description, keywords, image, url, type = 'website' }) => 
         },
         "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-            ],
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
             "opens": "09:00",
             "closes": "22:00"
         },
-        // Social Profiles - Google Knowledge Graph ke liye Zaruri
         "sameAs": [
             "https://www.facebook.com/jonyhairenterprise",
-            "https://www.instagram.com/jonyhairenterprise",
-            "https://twitter.com/jonyhairenterprise",
-            "https://www.linkedin.com/company/jonyhairenterprise"
-            // Add actual links here
+            "https://www.instagram.com/jonyhairenterprise"
         ],
-        // Google ko batane ke liye ki hum kis cheez ke expert hain
+        // AI Knowledge Graph Signals
+        "areaServed": {
+            "@type": "GeoCircle",
+            "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 23.9333, "longitude": 88.2500 },
+            "geoRadius": "50000"
+        },
         "knowsAbout": [
             "Human Hair Export",
             "Bulk Hair Manufacturing",
             "Machine Weft Extensions",
-            "Raw Indian Temple Hair",
-            "Blonde Hair Processing",
-            "Curly Hair Textures"
-        ],
-        // Specific Ranking Keywords ko 'hasOfferCatalog' mein daal rahe hain
-        "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Human Hair Products",
-            "itemListElement": [
-                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Bulk Hair" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Machine Weft Hair" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "I-Tip Extensions" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Frontals and Closures" } },
-                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Wigs" } }
-            ]
-        },
-        "areaServed": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-                "@type": "GeoCoordinates",
-                "latitude": 23.9333,
-                "longitude": 88.2500
-            },
-            "geoRadius": "50000" // 50km radius around Beldanga specifically implies local dominance
-        }
+            "Raw Indian Temple Hair"
+        ]
     };
+
+    // --- 2. SELECT DYNAMIC SCHEMA ---
+    let finalSchema = schema;
+
+    // Agar Product Page hai aur specific schema pass nahi hua, toh basic product schema banayein (Fallback)
+    if (!finalSchema && type === 'product') {
+        finalSchema = {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": title,
+            "image": image || defaultImage,
+            "description": description || defaultDescription,
+            "brand": {
+                "@type": "Brand",
+                "name": "Jony Hair Enterprise"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "USD",
+                "price": "0", // Default, should be overridden by prop
+                "availability": "https://schema.org/InStock"
+            }
+        };
+    }
+
+    // Default to LocalBusiness only on Home Page
+    if (!finalSchema && type === 'website') {
+        finalSchema = localBusinessSchema;
+    }
 
     return (
         <Helmet>
@@ -119,25 +122,20 @@ const SEO = ({ title, description, keywords, image, url, type = 'website' }) => 
             <meta name="author" content="Tofajul Aktar" />
             <meta name="robots" content="index, follow" />
 
-            {/* Open Graph (Social Media Preview) */}
+            {/* Open Graph */}
             <meta property="og:site_name" content={siteTitle} />
-            <meta property="og:title" content={title || `Best Human Hair Manufacturer Beldanga | ${siteTitle}`} />
+            <meta property="og:title" content={title || siteTitle} />
             <meta property="og:description" content={description || defaultDescription} />
             <meta property="og:image" content={image || defaultImage} />
             <meta property="og:url" content={currentUrl} />
             <meta property="og:type" content={type} />
-            <meta property="og:locale" content="en_US" />
 
-            {/* Twitter Card */}
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content={title || siteTitle} />
-            <meta name="twitter:description" content={description || defaultDescription} />
-            <meta name="twitter:image" content={image || defaultImage} />
-
-            {/* JSON-LD Schema for AI & Knowledge Graph */}
-            <script type="application/ld+json">
-                {JSON.stringify(schemaData)}
-            </script>
+            {/* JSON-LD Schema */}
+            {finalSchema && (
+                <script type="application/ld+json">
+                    {JSON.stringify(finalSchema)}
+                </script>
+            )}
         </Helmet>
     );
 };

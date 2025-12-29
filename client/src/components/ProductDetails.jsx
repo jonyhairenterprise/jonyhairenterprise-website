@@ -81,19 +81,53 @@ const ProductDetails = () => {
     );
   }
 
-  // Construct Dynamic SEO Data
-  // smart title combining Product Name + Location keywords for high ranking.
-  const seoTitle = product ? `${product.name} - Best Manufacturer Price in Beldanga, India` : "Premium Human Hair";
+  // --- SEO & SCHEMA GENERATION START ---
 
-  // rich description including category and quality assurance.
-  const seoDesc = product ? `Buy ${product.name} directly from factory in Beldanga. 100% Raw Indian ${product.category}, single donor, unprocessed. Worldwide shipping available.` : "";
+  // 1. Calculate Minimum Price from Variants (Required for 'Offers' Schema)
+  const minPrice = product?.variants?.length
+    ? Math.min(...product.variants.map(v => Number(v.price)))
+    : 0;
+
+  // 2. Construct Full Product Schema (Fixes Google Search Console Errors)
+  const productSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.name,
+    "image": product.image,
+    "description": product.description?.substring(0, 160) || "Premium Quality Human Hair from Beldanga.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Jony Hair Enterprise"
+    },
+    "sku": product._id,
+    "offers": {
+      "@type": "Offer",
+      "url": window.location.href,
+      "priceCurrency": "USD",
+      "price": minPrice,
+      "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": product.rating || 5,
+      "reviewCount": product.reviewCount || 1
+    }
+  };
+
+  // Smart title combining Product Name + Location keywords.
+  const seoTitle = `${product.name} - Best Manufacturer Price in Beldanga, India`;
+
+  // Rich description including category and quality assurance.
+  const seoDesc = `Buy ${product.name} directly from factory in Beldanga. 100% Raw Indian ${product.category}, single donor, unprocessed. Worldwide shipping available.`;
 
   // Dynamic keywords combining product specifics with location tags.
-  const seoKeywords = product ? `${product.name}, ${product.category} exporter India, Best human hair Beldanga, Raw hair supplier Murshidabad, ${product.name} wholesale price` : "";
+  const seoKeywords = `${product.name}, ${product.category} exporter India, Best human hair Beldanga, Raw hair supplier Murshidabad, ${product.name} wholesale price`;
+  // --- SEO END ---
 
   return (
     <div className="min-h-screen bg-gray-50/50 dark:bg-slate-950 relative overflow-hidden transition-colors duration-300">
-      
+
       {product && (
         <SEO
           title={seoTitle}
@@ -101,6 +135,8 @@ const ProductDetails = () => {
           keywords={seoKeywords}
           image={product.image}
           url={window.location.href}
+          type="product"         // ✅ Added Type
+          schema={productSchema} // ✅ Added Dynamic Schema
         />
       )}
 
